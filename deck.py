@@ -21,8 +21,13 @@ class Deck:
         for card in self.card_list:
             print(card.show_card())
 
-    def draw_card(self):
-        return self.card_list.pop(random.randrange(52))
+    def draw_card(self,position):
+        if position == 'top':
+            return self.card_list.pop(0)
+        elif position == 'bottom':
+            return  self.card_list[len(self.card_list)-1]
+        elif position == 'random':
+            return self.card_list.pop(random.randrange(0,len(self.card_list)))
 
 
 class Card:
@@ -37,5 +42,5 @@ class Card:
         return self.card
 
 
-deck_of_cards = Deck()
-deck_of_cards.show_deck()
+
+
