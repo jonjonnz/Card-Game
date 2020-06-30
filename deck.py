@@ -51,11 +51,14 @@ class Deck:
         """Shuffle the deck using riffle shuffle or a cut shuffle or a random shuffle"""
         if shuffle_type == 'riffle':
             temp_deck = []
-            for i in range(int(len(self.deck) / 2)):
+            self.deck = self.deck[::-1]
+            deck_count = int(len(self.deck) / 2)
+            for i in range(deck_count):
                 temp_deck.append(self.deck[i])
                 temp_deck.append(self.deck[i + int(len(self.deck) / 2)])
-
-            self.deck = temp_deck
+            if deck_count % 2 != 0:
+                temp_deck.append(self.deck[len(self.deck) - 1])
+            self.deck = temp_deck[::-1]
         elif shuffle_type == 'cut':
             n = random.randrange(0, len(self.deck))
             self.deck = (self.deck[-n:] + self.deck[:-n])
