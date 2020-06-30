@@ -1,8 +1,14 @@
 import random
-
+import pygame
+import os
 # Defaults for a deck
 suits = {'Spades': '♠', 'Hearts': '♥', 'Clubs': '♣', 'Diamonds': '♦'}
 ranks = {1: 'A', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: '10', 11: 'J', 12: 'Q', 13: 'K'}
+
+
+# Images
+game_folder = os.path.dirname(__file__)
+img_folder = os.path.join(game_folder, "deck_imgs")
 
 
 # Make a full deck of cards
@@ -78,7 +84,7 @@ class Card:
         self.value = value
         self.symbol = symbol
         self.card = self.name + self.symbol
-
+        self.image = pygame.image.load(os.path.join(img_folder,self.suit[0]+str(value) + '.png')).convert()
     def show_card(self):
         """Show the current drawn card"""
         return self.card
