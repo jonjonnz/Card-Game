@@ -84,7 +84,7 @@ class Card:
         self.value = value
         self.symbol = symbol
         self.card = self.name + self.symbol
-        self.image = pygame.image.load(os.path.join(img_folder,self.suit[0]+str(value) + '.png')).convert()
+        self.image = pygame.image.load(os.path.join(img_folder,self.suit[0]+str(value) + '.png'))
     def show_card(self):
         """Show the current drawn card"""
         return self.card
