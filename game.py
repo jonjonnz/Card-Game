@@ -1,8 +1,21 @@
 import deck
-
+from os import name, system
+from time import sleep
 # import pygame
 
+
+def clear():
+    # for windows
+    if name == 'nt':
+        _ = system('cls')
+
+        # for mac and linux(here, os.name is 'posix')
+    else:
+        _ = system('clear')
+
 # # Predefined Values
+
+
 # width = 800
 # height = 600
 # FPS = 60
@@ -53,40 +66,69 @@ def get_total(hand):
             value += card.value
     return value
 
+def current_turn(turn, hand):
+    if turn == 'player':
+        if get_total(hand) < 22:
+            choice = input('What do you want to do ? 1.Hit 2.Stand :')
+            if choice == '1':
+                clear()
+                player.append(deck_of_cards.draw_card('top'))
+                print('You got : ', end='')
+                sleep(1)
+                for card in player:
+                    print('[{}] '.format(card.show_card()), end='')
+                print('\n')
+                current_turn('player', hand)
+
+            elif choice == '2':
+                return 'stand'
+            else:
+                print('Select Correct input')
+                current_turn(turn,hand)
+        else:
+            return 'busted'
 
 comp = []
 player = []
 sequence = [player, comp, player, comp]
 busted = None
 while game_on:
+    clear()
     for turn in sequence:
         turn.append(deck_of_cards.draw_card('top'))
     bet = int(input('Enter bet : '))
-    print('Computer got : {} []'.format(comp[0].show_card()))
-    print('You got : {} {}'.format(player[0].show_card(), player[1].show_card()))
-    add_card = True
-    while add_card:
-        choice = input('What do you want to do ? 1.Hit(h) 2.Stand(s) :')
-        if choice == 'h':
-            player.append(deck_of_cards.draw_card('top'))
-            print('You got : ', end='')
-            for card in player:
-                print(card.show_card() + ' ', end='')
-            print('\n')
-        elif choice == 's':
-            add_card = False
-        if get_total(player) > 21:
-            add_card = False
-            busted = 'p'
-    if not busted:
-        print('Computer got {} {} : '.format(comp[0].show_card(), comp[1].show_card()))
-        while get_total(comp) < 17:
-            comp.append(deck_of_cards.draw_card)
-            print('Computer got : ', end='')
-            for card in comp:
-                print(card.show_card() + ' ', end='')
-            print('\n')
-        if get_total(comp) >21:
-            busted = 'c'
+    print('Computer got : [{}] [?]'.format(comp[0].show_card()))
+    sleep(1)
+    print('You got : [{}] [{}]'.format(player[0].show_card(), player[1].show_card()))
+    player_busted = current_turn('player',player)
+    if player_busted != 'busted':
+        player_score = get_total(player)
+
+    # add_card = True
+    # while add_card:
+    #     choice = input('What do you want to do ? 1.Hit 2.Stand :')
+    #     if choice == 'h':
+    #         player.append(deck_of_cards.draw_card('top'))
+    #         print('You got : ', end='')
+    #         for card in player:
+    #             print(card.show_card() + ' ', end='')
+    #         print('\n')
+    #     elif choice == 's':
+    #         add_card = False
+    #     if get_total(player) > 21:
+    #         add_card = False
+    #         busted = 'p'
+    # if not busted:
+    #     print('Computer got {} {} : '.format(comp[0].show_card(), comp[1].show_card()))
+    #     while get_total(comp) < 17:
+    #         comp.append(deck_of_cards.draw_card)
+    #         print('Computer got : ', end='')
+    #         for card in comp:
+    #             print(card.show_card() + ' ', end='')
+    #         print('\n')
+    #     if get_total(comp) > 21:
+    #         busted = 'c'
 
     game_on = False
+
+
