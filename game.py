@@ -21,40 +21,6 @@ def get_total(hand):
     return value
 
 
-def current_turn(turn, hand):
-    score = get_total(hand)
-    if turn == 'player':
-        if score < 22:
-            choice = input('What do you want to do ? 1.Hit 2.Stand :')
-            if choice == '1':
-                hand.append(deck_of_cards.draw_card('top'))
-                print('You got : ', end='')
-                for card in hand:
-                    print('[{}] '.format(card.show_card()), end='')
-                print('\n')
-                return current_turn('player', hand)
-
-            elif choice == '2':
-                return ['stand', score]
-            else:
-                print('Select Correct input')
-                return current_turn(turn, hand)
-        else:
-            return ['busted', score]
-    elif turn == 'dealer':
-        if score < 17:
-            hand.append(deck_of_cards.draw_card('top'))
-            print('Dealer got : ', end='')
-            for card in hand:
-                print('[{}] '.format(card.show_card()), end='')
-            print('\n')
-            return current_turn(turn, hand)
-        elif score > 21:
-            return ['busted', score]
-        else:
-            return ['stand', score]
-
-
 # Predefined Values
 width = 800
 height = 600
@@ -78,7 +44,41 @@ while running:
     pygame.display.update()
 pygame.quit()
 
+
+# def current_turn(turn, hand):
+#     score = get_total(hand)
+#     if turn == 'player':
+#         if score < 22:
+#             choice = input('What do you want to do ? 1.Hit 2.Stand :')
+#             if choice == '1':
+#                 hand.append(deck_of_cards.draw_card('top'))
+#                 print('You got : ', end='')
+#                 for card in hand:
+#                     print('[{}] '.format(card.show_card()), end='')
+#                 print('\n')
+#                 return current_turn('player', hand)
 #
+#             elif choice == '2':
+#                 return ['stand', score]
+#             else:
+#                 print('Select Correct input')
+#                 return current_turn(turn, hand)
+#         else:
+#             return ['busted', score]
+#     elif turn == 'dealer':
+#         if score < 17:
+#             hand.append(deck_of_cards.draw_card('top'))
+#             print('Dealer got : ', end='')
+#             for card in hand:
+#                 print('[{}] '.format(card.show_card()), end='')
+#             print('\n')
+#             return current_turn(turn, hand)
+#         elif score > 21:
+#             return ['busted', score]
+#         else:
+#             return ['stand', score]
+
+
 # dealer = []
 # player = []
 # sequence = [player, dealer, player, dealer]
