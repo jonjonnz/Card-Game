@@ -40,7 +40,9 @@ while running:
         # Checking for closing the game
         if event.type == pygame.QUIT:
             running = False
-
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                screen.blit(deck_of_cards.draw_card('top').image,(0,0 ))
     pygame.display.update()
 pygame.quit()
 
